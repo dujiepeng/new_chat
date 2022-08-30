@@ -1,12 +1,12 @@
 ﻿namespace AgoraChat
 {
-   /**
-    * \~chinese
-    * SDK 客户端类是 Chat SDK 的入口，负责登录、登出及管理 SDK 与 chat 服务器之间的连接。
-    *
-    * \~english
-    * The SDK client class, the entry of the chat SDK, defines how to log in to and log out of the chat app and how to manage the connection between the SDK and the chat server.
-    */
+    /**
+     * \~chinese
+     * SDK 客户端类是 Chat SDK 的入口，负责登录、登出及管理 SDK 与 chat 服务器之间的连接。
+     *
+     * \~english
+     * The SDK client class, the entry of the chat SDK, defines how to log in to and log out of the chat app and how to manage the connection between the SDK and the chat server.
+     */
     public class SDKClient
     {
         private static SDKClient _instance;
@@ -19,10 +19,11 @@
             }
         }
 
-        private SDKClient() 
+        private SDKClient()
         {
-           
+            _clientImpl = new IClient();
         }
+
 
         /**
          * \~chinese
@@ -135,7 +136,12 @@
         */
         public void InitWithOptions(Options options)
         {
-            _clientImpl = new IClient();
+            
+        }
+
+        public void DeInit()
+        {
+            _clientImpl.CleanUp();
         }
     }
 }

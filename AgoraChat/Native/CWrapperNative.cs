@@ -25,7 +25,6 @@ namespace AgoraChat
         [DllImport("ChatCWrapper")]
         internal static extern void CleanListener();
 
-
         [DllImport("ChatCWrapper")]
         private extern static void _NativeCall(string manager, string method, string jsonString = null, string callbackId = null);
 

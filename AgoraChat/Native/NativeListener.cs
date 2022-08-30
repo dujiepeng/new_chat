@@ -20,8 +20,11 @@ namespace AgoraChat
 
     internal delegate void MultiDeviceHandle(string method, string jsonString);
 
+    internal delegate void CallbackManagerHandle(string callId, string jsonString);
+
     internal class NativeListener
     {
+  
         public NativeListenerEvent nativeListenerEvent;
 
         public event ChatManagerHandle chatManagerEvent;
@@ -40,15 +43,20 @@ namespace AgoraChat
 
         public event MultiDeviceHandle multiDeviceEvent;
 
+        public event CallbackManagerHandle callbackEvent;
+
+        public CallbackManager callbackManager;
+
         public NativeListener() {
+            callbackManager = new CallbackManager();
             nativeListenerEvent = (string listener, string method, string jsonString) =>
             {
                 if (listener == "chatManagerListener")
                 {
                     chatManagerEvent(method, jsonString);
                 }
-                else if (listener == "contactManagerListener") 
-                { 
+                else if (listener == "contactManagerListener")
+                {
                     contactManagerEvent(method, jsonString);
                 }
                 else if (listener == "groupManagerListener")
@@ -75,7 +83,19 @@ namespace AgoraChat
                 {
                     multiDeviceEvent(method, jsonString);
                 }
+                else if (listener == "callback")
+                {
+                    callbackEvent(method, jsonString);
+                }
             };
+        }
+
+        public void AddNaitveListener() {
+            CWrapperNative.AddListener(nativeListenerEvent);
+        }
+
+        public void RemoveNativeListener() {
+            CWrapperNative.CleanListener();
         }
     }
 }
