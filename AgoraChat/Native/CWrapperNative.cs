@@ -3,8 +3,6 @@ using System.Text;
 namespace AgoraChat
 {
 
-    internal delegate void ListenerEvent(string listener, string method, string jsonString);
-
     public sealed class CWrapperNative
     {
         internal static void NativeCall(string manager, string method, SimpleJSON.JSONNode json, string callbackId = null) {
@@ -21,7 +19,7 @@ namespace AgoraChat
 
 
         [DllImport("ChatCWrapper")]
-        internal static extern void AddListener(ListenerEvent listener);
+        internal static extern void AddListener(NativeListenerEvent listener);
 
 
         [DllImport("ChatCWrapper")]

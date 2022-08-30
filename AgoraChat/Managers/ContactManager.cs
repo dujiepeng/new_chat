@@ -2,8 +2,14 @@
 {
     public class ContactManager
     {
-        public ContactManager()
+        internal ContactManager(NativeListener nativeListener) 
         {
+            nativeListener.contactManagerEvent += NativeEventHandle;
+        }
+
+        void NativeEventHandle(string method, string jsonString) 
+        { 
+
         }
     }
 }
